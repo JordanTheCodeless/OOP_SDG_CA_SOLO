@@ -14,9 +14,9 @@ public class CarbonApp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+//        Setting my GUI to visible
          CarbonGUI myGUI = new CarbonGUI();
-        myGUI.setVisible(true);
+             myGUI.setVisible(true);
     }
     
 }

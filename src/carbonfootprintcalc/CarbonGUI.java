@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @author jordancarthy
  */
 public class CarbonGUI extends javax.swing.JFrame {
-
+// declare my variables
     ArrayList<CarbonFootPrint> footPrints;
     double value;
     double electricBill;
@@ -49,7 +49,7 @@ public class CarbonGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         carbonButtonGroup = new javax.swing.ButtonGroup();
-        jPanel2 = new javax.swing.JPanel();
+        hiddenTabPanel = new javax.swing.JPanel();
         billsRB = new javax.swing.JRadioButton();
         transportRB = new javax.swing.JRadioButton();
         recyclingRB = new javax.swing.JRadioButton();
@@ -84,17 +84,16 @@ public class CarbonGUI extends javax.swing.JFrame {
         loadBTN = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         displayTA = new javax.swing.JTextArea();
-        Add = new javax.swing.JButton();
+        addBTN = new javax.swing.JButton();
         saveBTN = new javax.swing.JButton();
         displayBTN = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(500, 450));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setLayout(new javax.swing.OverlayLayout(jPanel2));
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, -20, 44, 270));
+        hiddenTabPanel.setLayout(new javax.swing.OverlayLayout(hiddenTabPanel));
+        getContentPane().add(hiddenTabPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, -20, 44, 270));
 
         carbonButtonGroup.add(billsRB);
         billsRB.setFont(new java.awt.Font("American Typewriter", 0, 14)); // NOI18N
@@ -299,11 +298,11 @@ public class CarbonGUI extends javax.swing.JFrame {
         displayTA.setRows(5);
         jScrollPane2.setViewportView(displayTA);
 
-        Add.setFont(new java.awt.Font("American Typewriter", 0, 13)); // NOI18N
-        Add.setText("Add");
-        Add.addActionListener(new java.awt.event.ActionListener() {
+        addBTN.setFont(new java.awt.Font("American Typewriter", 0, 13)); // NOI18N
+        addBTN.setText("Add");
+        addBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddActionPerformed(evt);
+                addBTNActionPerformed(evt);
             }
         });
 
@@ -332,7 +331,7 @@ public class CarbonGUI extends javax.swing.JFrame {
                 .addGroup(displayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(displayPanelLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(Add)
+                        .addComponent(addBTN)
                         .addGap(18, 18, 18)
                         .addComponent(loadBTN)
                         .addGap(18, 18, 18)
@@ -349,7 +348,7 @@ public class CarbonGUI extends javax.swing.JFrame {
                 .addGroup(displayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(displayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(loadBTN)
-                        .addComponent(Add))
+                        .addComponent(addBTN))
                     .addComponent(saveBTN))
                 .addGap(8, 8, 8)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -362,7 +361,7 @@ public class CarbonGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+//    Created a show display function to ensure that the display of textarea for file reading is only shown when a radio button is selected
     public void showDisplay(){
         displayPanel.setVisible(true);
     }
@@ -373,11 +372,10 @@ public class CarbonGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_electricTFActionPerformed
 
-    private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
+    private void addBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBTNActionPerformed
         // TODO add your handling code here:
         try{
         if (billsRB.isSelected()) {
-            showDisplay();
             electricBill = Double.parseDouble(electricTF.getText());
             gasBill = Double.parseDouble(gasTF.getText());
             oilBill = Double.parseDouble(oilTF.getText());
@@ -385,11 +383,11 @@ public class CarbonGUI extends javax.swing.JFrame {
             CarbonFootPrint carbonBills = new CarbonBills("Bills", value, electricBill, gasBill, oilBill);
             carbonBills.computeCarbonFoot();
             footPrints.add(carbonBills);
-            displayTA.append("\n File added");
+            displayTA.append("\n Monthly bills Added");
             errorLBL.setVisible(false);
             clearFields();
         } 
-        if (recyclingRB.isSelected()) {  // Add logic for recycling radio button or equivalent
+        if (recyclingRB.isSelected()) {  // addBTN logic for recycling radio button or equivalent
             // Get the checkbox states to determine if aluminum or newspaper is being recycled
             displayPanel.setVisible(true);
             boolean isAluminumRecycled = false;
@@ -405,12 +403,11 @@ public class CarbonGUI extends javax.swing.JFrame {
             carbonRecycle.computeCarbonFoot();
 
             footPrints.add(carbonRecycle);
-            displayTA.append("\n File added");
+            displayTA.append("\nRecycling added");
             errorLBL.setVisible(false);
             clearFields();       
-    }//GEN-LAST:event_AddActionPerformed
+    }//GEN-LAST:event_addBTNActionPerformed
          if(transportRB.isSelected()){
-            showDisplay();
             flightLessFour = Double.parseDouble(flightsLessTF.getText());
             flightMoreFour = Double.parseDouble(flightsMoreTF.getText());
             carYearlyMileage = Double.parseDouble(carYearlyTF.getText());
@@ -418,13 +415,13 @@ public class CarbonGUI extends javax.swing.JFrame {
             CarbonFootPrint carbonTransport = new CarbonTransport("Transport", value, flightLessFour, flightMoreFour,  carYearlyMileage);
             carbonTransport.computeCarbonFoot();
             footPrints.add(carbonTransport);
-            displayTA.append("\n File added");
+            displayTA.append("\nTransport added");
             errorLBL.setVisible(false);
             clearFields();
             
         }
         } catch(NumberFormatException e){
-            displayTA.append("Can you please enter a number");
+            System.out.println("Error : " + e);
             errorLBL.setVisible(true);
             clearFields();
         }
@@ -440,7 +437,6 @@ public class CarbonGUI extends javax.swing.JFrame {
             f = new File("footprints.dat");
             fStream = new FileOutputStream(f);
             oStream = new ObjectOutputStream(fStream);
-
             oStream.writeObject(footPrints);
             oStream.close();
             displayTA.append("\nSuccesfully saved file");
@@ -448,6 +444,23 @@ public class CarbonGUI extends javax.swing.JFrame {
             System.out.println("I/O e :" + e);
         }
     }//GEN-LAST:event_saveBTNActionPerformed
+     private void loadFile() {
+        File f;
+        FileInputStream fStream;
+        ObjectInputStream oStream;
+        try {
+            f = new File("footprints.dat");
+            fStream = new FileInputStream(f);
+            oStream = new ObjectInputStream(fStream);
+            footPrints = (ArrayList<CarbonFootPrint>) oStream.readObject();
+            oStream.close();
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("File input" + e);
+        }
+
+    }
+//     Clear Fields method
     private void clearFields() {
         oilTF.setText("");
         electricTF.setText("");
@@ -475,6 +488,7 @@ public class CarbonGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (billsRB.isSelected()) {
             carbonTabPane.setSelectedComponent(billsPane);
+            showDisplay();
         } else {
             billsPane.setVisible(false);
         }
@@ -483,12 +497,7 @@ public class CarbonGUI extends javax.swing.JFrame {
 
     private void billsRBItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_billsRBItemStateChanged
         // TODO add your handling code here:
-        if (billsRB.isSelected()) {
-            billsPane.setVisible(true);
-            showDisplay();
-        } else {
-            billsPane.setVisible(false);
-        }
+      
     }//GEN-LAST:event_billsRBItemStateChanged
 
     private void transportRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportRBActionPerformed
@@ -518,25 +527,7 @@ public class CarbonGUI extends javax.swing.JFrame {
     private void aluminumCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aluminumCBActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_aluminumCBActionPerformed
-    private void loadFile() {
-        File f;
-        FileInputStream fStream;
-        ObjectInputStream oStream;
-        try {
-            f = new File("footprints.dat");
-            fStream = new FileInputStream(f);
-            oStream = new ObjectInputStream(fStream);
-//            Read the fille data to the arrayList
-//               We need to remind jaa what typee of object we are getting from file
-            footPrints = (ArrayList<CarbonFootPrint>) oStream.readObject();
-
-            oStream.close();
-
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("File input" + e);
-        }
-
-    }
+   
 
     /**
      * @param args the command line arguments
@@ -575,7 +566,7 @@ public class CarbonGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Add;
+    private javax.swing.JButton addBTN;
     private javax.swing.JCheckBox aluminumCB;
     private javax.swing.JLayeredPane billsPane;
     private javax.swing.JRadioButton billsRB;
@@ -595,6 +586,7 @@ public class CarbonGUI extends javax.swing.JFrame {
     private javax.swing.JTextField flightsMoreTF;
     private javax.swing.JLabel gasBIllLBL;
     private javax.swing.JTextField gasTF;
+    private javax.swing.JPanel hiddenTabPanel;
     private javax.swing.JLabel introFirstTextLBL;
     private javax.swing.JPanel introPane;
     private javax.swing.JLabel introSecondTextLBL;
@@ -603,7 +595,6 @@ public class CarbonGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton loadBTN;
     private javax.swing.JCheckBox newspaperCB;

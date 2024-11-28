@@ -12,8 +12,8 @@ public class CarbonBills extends CarbonFootPrint {
     private double electricBill;
     private double gasBill;
     private double oilBill;
-    private double billsTotal[];
-
+    private double billsTotal[]; // Putting all bills in a double array
+// Overloaded Constructor
     public CarbonBills(String type, double value,double electricBill, double gasBill, double oilBill ) {
         super(type, value);
         this.electricBill = electricBill;
@@ -46,6 +46,7 @@ public class CarbonBills extends CarbonFootPrint {
         this.oilBill = oilBill;
     }
     @Override
+//    Abstract method 
     public double computeCarbonFoot(){
         return value = ((billsTotal[0] * 105)+ (billsTotal[1] * 105) + (billsTotal[2]*103));
     }
