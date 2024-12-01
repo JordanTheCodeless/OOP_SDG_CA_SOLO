@@ -225,7 +225,7 @@ public class CarbonGUI extends javax.swing.JFrame {
         billsPane.add(oilTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 89, -1));
 
         gasBIllLBL.setFont(new java.awt.Font("American Typewriter", 0, 14)); // NOI18N
-        gasBIllLBL.setText("Gas Bill");
+        gasBIllLBL.setText("Gas Bill :");
         billsPane.add(gasBIllLBL, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 70, -1));
         billsPane.add(gasTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, 88, -1));
 
@@ -237,7 +237,7 @@ public class CarbonGUI extends javax.swing.JFrame {
         billsPane.add(electricTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 88, -1));
 
         oilBillLBL.setFont(new java.awt.Font("American Typewriter", 0, 14)); // NOI18N
-        oilBillLBL.setText("Oil bill");
+        oilBillLBL.setText("Oil bill :");
         billsPane.add(oilBillLBL, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 60, -1));
 
         electricBillLBL.setFont(new java.awt.Font("American Typewriter", 0, 14)); // NOI18N
@@ -475,6 +475,11 @@ public class CarbonGUI extends javax.swing.JFrame {
     private void loadBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBTNActionPerformed
         // TODO add your handling code here:
         loadFile();
+        displayTA.append("\nData loaded successfully.\n");
+        for (CarbonFootPrint footPrint : footPrints) {
+            displayTA.append(footPrint.toString() + "\n");
+        }
+    
     }//GEN-LAST:event_loadBTNActionPerformed
 
     private void displayBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayBTNActionPerformed
